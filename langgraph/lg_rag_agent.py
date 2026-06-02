@@ -14,6 +14,11 @@
         - 프럼프트 => LLM 추론 : 랭체인으로 묶어서 하나의 단위(노드)로 구성 가능함
     - 프럼프트
         - fewshot 활용
+
+- 이슈
+    - 도구 사용은 LLM이 자율적으로 진행
+    - 현재는 LLM 스스로 해결하는 이슈, 확인 후 정정
+    - 페르소나에서 강력하게 도구 사용을 강제하면 일단 도구 사용 작동한 (참고)
 '''
 # 1. 모듈 가져오기
 from langgraph.graph import StateGraph, END 
@@ -74,11 +79,11 @@ class AgentState(TypedDict):
 # 사용자의 질의(대화)를 보고, 생각하는 단계 구성 (메뉴 추천, 도구 사용 결정)
 def thinking_node( state:AgentState ):
     # 사용자 입력내용 추출(획득)
-    messages = state['messages'] # 사용자 -> UI -> 입력 -> 앤터 -> 서버 -> 랭그래프객체, invoke(프롬프트)
+    msg = state['messages'] # 사용자 -> UI -> 입력 -> 앤터 -> 서버 -> 랭그래프객체, invoke(프롬프트)
     # 랭체인 구성(일반향) : 퓨샷 프롬프트(페르소나, 샘플 구성되어 있음)
     chain = final_prompt | llm_with_tools
     # 1차 추론 요청 진행
-    res = chain.invoke( {"messages":messages})
+    res = chain.invoke( {"messages":msg})
     # 응답 결과 반환
     return {"messages": [res]}
 
