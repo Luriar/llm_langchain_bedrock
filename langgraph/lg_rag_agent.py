@@ -102,10 +102,14 @@ def tool_node( state:AgentState ):
                 }
             ]
         '''
-
+        # 툴 사용(rag 수행)
+        result = rag_search.invoke(tool['args']) # 사용자가 질문한 내용을 추출하여 호출
+        print('RAG 호출 결과 : ',result)
+        return{"messages":[
+            HumanMessage(content=f'[사내데이터 검색결과]: {result}\n 제공된 정보를 기반으로 최종 답변을 해주세요.')
+        ]}
     # 보험용
     return {'messages':[]}
-    pass
 
 # 검색 결과를 바탕으로 최종 답변 추론
 # 실제는 다시 thinking_node로 다시 가서 최종 구성해도 됨.
