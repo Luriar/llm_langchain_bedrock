@@ -212,3 +212,29 @@ L llm/__init__.py             : bedrock 통신 모듈
 -> LLM 응답 -> 다음 노드(단계) 진행 -> ...
 -> 성능 평가, 데이터 흐름, 트래킹, 관리 -> 랭스미스
 ```
+
+# 구현
+## 필요 패키지 설치
+```
+langgraph
+mcp==1.27.2
+botocore
+langsmith
+pydantic
+```
+
+# 가상환경 활성화 -> 설치
+## 윈도우
+./llm_venv/Scripts/activate
+
+## 맥
+source llm_venv/Scripts/activate
+
+pip install -r requirements.txt
+
+## 1단계 심플 구성
+- 통신 집중
+    - MCP Client <-> MCP Server
+- MCP Server
+    - ./mcp/server.py
+    
