@@ -29,7 +29,7 @@ note_memory = dict()
 @mcp.tool() # 도구로 등록
 def add(a: float, b: float) -> str:
     '''
-    두 수를 더하는 계신기
+    두 수를 더하는 계산기
 
     Args:
         a: 첫 번째 수치
